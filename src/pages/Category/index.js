@@ -1,42 +1,82 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 // import { Container } from './styles';
 
 import Base from '../templates/Base';
+import FormInput from '../../components/FormInput';
 
 function Category() {
+  const initialValues = {
+    name: '',
+    description: '',
+    color: '#00A878',
+  };
+
+  const [categories, setCategories] = useState([]);
+  const [category, setCategory] = useState(initialValues);
+
+  function handleInputChange(event) {
+    const { name, value } = event.target;
+
+    setCategory({ ...category, [name]: value });
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    setCategories([
+      ...categories,
+      category
+    ]);
+
+    setCategory(initialValues);
+  }
+
   return (
     <Base>
-      <h1>Cadastro de Categoria</h1>
+      <h1>Cadastro de Categoria: {category.name}</h1>
 
-      <form>
-        <label>
-          Nome da Categoria:
-          <input type="text" />
-        </label>
+      <form onSubmit={handleSubmit}>
+        <FormInput
+          label="Nome da Categoria"
+          type="text"
+          name="name"
+          value={category.name}
+          onChange={handleInputChange}
+        />
 
-        {/* <label>
-          Escolha uma Categoria
-          <select name="select">
-            <option>Escolha uma Categoria</option>
-            <option value="valor1">Front-End</option>
-            <option value="valor2">Back-End</option>
-          </select>
-        </label> */}
+        <div>
+          <label>
+            Descrição:
+            <textarea
+              type="text"
+              name="description"
+              value={category.description}
+              onChange={handleInputChange} 
+            />
+          </label>
+        </div>
 
-        <label>Cor
-          <input type="color" id="body" name="body" value="#f6b73c" />
-        </label>
+        <FormInput
+          label="Cor"
+          type="color"
+          name="color"
+          value={category.color}
+          onChange={handleInputChange}
+        />
 
-        <label>
-          <textarea />
-        </label>
-
-        <button>
-          Cadastrar
-        </button>
+        <div>
+          <button>Cadastrar</button>
+        </div>
       </form>
+
+      <ul>
+        {categories &&
+         categories.map((category, index) => (
+          <li key={`${category.name}-${index}`}>{category.name}</li>
+        ))}
+      </ul>
 
       <Link to="/">
         Ir para Home
