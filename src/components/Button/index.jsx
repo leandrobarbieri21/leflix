@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 const Button = styled(Link)`
@@ -18,7 +18,7 @@ const Button = styled(Link)`
 
     &:hover,
     &:focus {
-    opacity: .5;
+        opacity: .5;
     }
 `;
 

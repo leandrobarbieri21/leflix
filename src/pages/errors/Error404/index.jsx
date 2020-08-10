@@ -1,6 +1,7 @@
 import React from 'react';
-import Base from '../../templates/Base';
 import { Link } from 'react-router-dom';
+
+import Base from '../../templates/Base';
 
 function Error404() {
   return (
@@ -12,7 +13,7 @@ function Error404() {
         Retornar a Página Inicial
       </Link>
     </Base>
-  )
+  );
 }
 
 export default Error404;
